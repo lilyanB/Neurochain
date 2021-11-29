@@ -18,7 +18,9 @@ router.get('/', async (req, res) => {
 //specific post
 router.get('/a', async (req, res) => {
     try {
-        const post = await Post.find({"_id": ObjectId('619297a7cec8d10001488e60')});
+        const _id='61929798cec8d10001488e4f';
+        const post = await Post.findById(_id);
+        console.log(post);
         res.json(post);
     } catch (err) {
         res.json({ message: err});

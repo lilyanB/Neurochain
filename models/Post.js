@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const PostSchema = mongoose.Schema({
     "_id": {
-        "type": "object",
+        "type": "ObjectId",
         "required": [],
         "properties": {
           "$oid": {
