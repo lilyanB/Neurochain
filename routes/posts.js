@@ -20,7 +20,7 @@ router.get('/a', async (req, res) => {
     try {
         const _id='61929798cec8d10001488e4f';
         const post = await Post.findById(_id);
-        console.log(post);
+        //console.log(post);
         res.json(post);
     } catch (err) {
         res.json({ message: err});
