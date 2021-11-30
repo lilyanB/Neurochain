@@ -1,5 +1,7 @@
 const express = require('express')
 const app = new express()
+const { isValidObjectId } = require('mongoose');
+const modele = require('./models/Post');
 
 //import routes
 const postsRoute = require('./routes/posts');
@@ -18,10 +20,11 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
-app.post('/recherche', function(req, res) {
+
+app.post('/', function(req, res) {
     console.log('post recu');
     console.log(req.body.IdTx);
-    res.send(req.body.IdTx);
+    res.redirect('posts/' + req.body.IdTx);
 });
 
 //connect to DB

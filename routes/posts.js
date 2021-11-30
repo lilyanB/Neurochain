@@ -16,11 +16,11 @@ router.get('/', async (req, res) => {
 });
 
 //specific post
-router.get('/a', async (req, res) => {
+router.get('/:postId', async (req, res) => {
     try {
-        const _id='61929798cec8d10001488e4f';
-        const post = await Post.findById(_id);
-        //console.log(post);
+        const Id = postId
+        const post = await Post.findById(Id);
+        console.log(post);
         res.json(post);
     } catch (err) {
         res.json({ message: err});
