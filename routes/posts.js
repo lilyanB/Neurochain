@@ -40,4 +40,11 @@ router.get('/:postId', async (req, res) => {
     }
 });
 
+router.post("/posts", async function(req, res, next) {
+    var outputData = { balance: 0 };
+    const inputIdTx = req.body.IdTx;
+    // ... processing
+    res.json(outputData);
+});
+
 module.exports = router;

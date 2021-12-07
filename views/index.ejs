@@ -63,7 +63,7 @@
                                 try {
                                     const url = `http://${window.location.hostname}:${window.location.port}/routes/posts`;
                                     const data = {
-                                        publicKey: aValue
+                                        IdTx: "myValue"
                                     }
                                     postAjax(url, data, function(xhr) { 
                                         const jsonData = JSON.parse(xhr.responseText);

@@ -8,6 +8,7 @@ const modele = require('./models/Post');
 const ejs = require('ejs')
 app.set('view engine', 'ejs')
 
+/*
 //import routes
 const postsRoute = require('./routes/posts');
 app.use('/posts', postsRoute);
@@ -21,7 +22,7 @@ app.post('/views/index.ejs', function(req,res){
     console.log('body is ',req.body);
     res.send(req.body);
 });
-
+*/
 
 
 var bodyParser = require('body-parser')
@@ -29,13 +30,13 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
-
+/*
 app.post('/', function(req, res) {
     console.log('post recu');
     console.log(req.body.IdTx);
     res.redirect('posts/' + req.body.IdTx);
 });
-
+*/
 //connect to DB
 const mongoose = require('mongoose');
 const { exit } = require('process');
