@@ -1,5 +1,9 @@
 const express = require('express')
 const app = new express()
+//par défaut que le GEt donc on rajoute pour gérer les éléments POST
+app.use(express.urlencoded({
+    extended: true
+}));
 const { isValidObjectId } = require('mongoose');
 const modele = require('./models/Post');
 
@@ -8,12 +12,14 @@ const modele = require('./models/Post');
 const ejs = require('ejs')
 app.set('view engine', 'ejs')
 
-/*
+
 //import routes
 const postsRoute = require('./routes/posts');
-app.use('/posts', postsRoute);
+app.use('/', postsRoute);
 
 
+
+/*
 //post
 var path = require('path')
 var bodyParser = require('body-parser');

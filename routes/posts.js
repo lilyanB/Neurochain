@@ -4,7 +4,7 @@ const { isValidObjectId } = require('mongoose');
 const Post = require('../models/Post');
 
 const router = express.Router();
-
+/*
 //routes
 router.get('/', async (req, res) => {
     try {
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         res.json({ message: err})
     }
 });
-
+*/
 //specific post
 /*
 router.get('/:postId', async (req, res) => {
@@ -27,7 +27,7 @@ router.get('/:postId', async (req, res) => {
         res.json({ message: err});
     }
 });
-*/
+
 
 router.get('/:postId', async (req, res) => {
     try {
@@ -39,11 +39,11 @@ router.get('/:postId', async (req, res) => {
         res.json({ message: err});
     }
 });
-
+*/
 router.post("/posts", async function(req, res, next) {
     var outputData = { balance: 0 };
     const inputIdTx = req.body.IdTx;
-    // ... processing
+    //console.log(inputIdTx);
     res.json(outputData);
 });
 

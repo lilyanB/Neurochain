@@ -26,13 +26,98 @@
                         <h2 class="post-title">search by ID</h2>
                     </div>
                     <div id="Formulaire">
-                        <form method="post">
+                        <form action=“javascript:void(0);” id=IdTxForm>
                                 <input type="text" name="IdTx" placeholder="ID" />
-                                <testarea id="message" placeholder="Message"></testarea>
-                                <input onclick="showOutput('aValue', 'ouput');" type="submit" value="envoyer" />
+                                <testarea name="elemForm" id="message" placeholder="Message"></testarea>
+                                <input onclick="test();" type="button" value="envoyer" />
                         </form>
+                    </div>
+                    <div id="reponse"></div>
                         <script>
+                            function serialize(form) {
+                                var output = {};
+                                if (typeof form == 'object' && form.nodeName == "FORM") {
+                                    var len = form.elements.length;
+                                    
+                                    for (var i = 0; i < len; i++) {
+                                        var field = form.elements[i];
+                                        if (field.name && !field.disabled && field.type != 'button' && field.type != 'file' && field.type != 'reset' && field.type != 'submit' /*&& field.type != 'hidden'*/) {
+                                            var fieldName = field.name;
+                                            var isArray = fieldName.includes("[]");
+                                            if( isArray ) {
+                                                fieldName = fieldName.replace("[]", "");
+                                                
+                                                if( !output[fieldName] ) {
+                                                    output[fieldName] = [];
+                                                }
+                                            }
+                                            if (field.type == 'select-multiple') {
+                                                var l = form.elements[i].options.length;
+                                                for (var j = 0; j < l; j++) {
+                                                    if (field.options[j].selected) {
+                                                        //output[encodeURIComponent(field.name)] = encodeURIComponent(field.options[j].value);
+                                                        if( isArray ) {
+                                                            output[fieldName].push(field.options[j].value); 
+                                                        } else {
+                                                            output[fieldName] = field.options[j].value;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
+                                                //output[encodeURIComponent(field.name)] = encodeURIComponent(field.value);
+                                                
+                                                if( isArray ) {
+                                                    output[fieldName].push(field.value);    
+                                                } else {
+                                                    output[fieldName] = field.value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                return output;
+                            };
+
                             function postAjax(url, data, success) {
+                                var params = typeof data == 'string' ? data : Object.keys(data).map(
+                                    function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+                                ).join('&');
+
+                                var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+                                xhr.open('POST', url);
+                                xhr.onreadystatechange = function() {
+                                    if (xhr.readyState>3 && xhr.status==200) { 
+                                        success(xhr); 
+                                    }
+                                };
+                                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                xhr.send(params);
+                                return xhr;
+                            }
+                            
+
+
+                            
+                            function test() {
+                                const form = document.getElementById("IdTxForm");
+                                const formJson = serialize(form);
+                                console.log(formJson);
+                                const url = "http://" + window.location.hostname + ":" + window.location.port + "/posts";
+                                postAjax(url, formJson, function(xhr) {
+                                                            try {
+                                                                const jsonData = JSON.parse(xhr.responseText);
+                                                                console.log("callback return", jsonData);
+                                                                const outputdiv = document.getElementById("reponse");
+                                                                outputdiv.innerHTML = "envoierep" + jsonData.balance;
+                                                            } catch(error) {
+                                                                console.log(error);
+                                                            }
+                                                        });
+                                //console.log(formJson);
+
+                                /*
                                 var params = typeof data == 'string' ? data : Object.keys(data).map(
                                         function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
                                     ).join('&');
@@ -46,8 +131,9 @@
                                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                                 xhr.send(params);
                                 return xhr;
+                                */
                             }
-
+                            
                             // example request
                             // postAjax('http://foo.bar/', 'p1=1&p2=Hello+World', function(data){ console.log(data); });
                             // postAjax('http://foo.bar/', { p1: 1, p2: 'Hello World' }, function(data){ console.log(data); });
@@ -81,7 +167,7 @@
                                 // ... processing
                                 res.json(outputData);
                             });
-                            </script>
+                        </script>
                     </div>
                 </div>
             </div>
