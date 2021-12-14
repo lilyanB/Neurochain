@@ -32,7 +32,9 @@
                                 <input onclick="afficherRep();" type="button" value="envoyer" />
                         </form>
                     </div>
-                    <div id="reponse"></div>
+                    <div id="reponse">
+                        <p id="id"></p>
+                    </div>
                         <script>
                             function serialize(form) {
                                 var output = {};
@@ -109,8 +111,8 @@
                                                             try {
                                                                 const jsonData = JSON.parse(xhr.responseText);
                                                                 console.log("callback return", jsonData);
-                                                                const outputdiv = document.getElementById("reponse");
-                                                                outputdiv.innerHTML = "envoierep" + jsonData._id;
+                                                                const outputid = document.getElementById("id");
+                                                                outputid.innerHTML = "vos recherches concerne l'ID : " + jsonData._id;
                                                                 //clé + valeur(type)
                                                             } catch(error) {
                                                                 console.log(error);
@@ -142,9 +144,6 @@
 
                         </script>
                             <!-- page html ou ejs ou autre-->
-                            <div id="ouput">
-                                <p>Vos resultat concerne ID:</p>
-                            </div>
                             <script>
                             function showOutput( aValue, outputDivId ) {
                                 const ouputDiv = document.getElementById(outputDivId);
