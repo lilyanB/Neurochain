@@ -8,8 +8,10 @@ const router = express.Router();
 router.post("/posts", async function(req, res, next) {
     var outputData = { balance: 0 };
     const inputIdTx = req.body.IdTx;
-    //console.log(inputIdTx);
-    res.json(outputData);
+    console.log(inputIdTx);
+    const result = await model.findById(inputIdTx);
+    console.log(result._id);
+    res.json(result);
 });
 
 module.exports = router;

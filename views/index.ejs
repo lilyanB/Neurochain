@@ -29,7 +29,7 @@
                         <form action=“javascript:void(0);” id=IdTxForm>
                                 <input type="text" name="IdTx" placeholder="ID" />
                                 <testarea name="elemForm" id="message" placeholder="Message"></testarea>
-                                <input onclick="test();" type="button" value="envoyer" />
+                                <input onclick="afficherRep();" type="button" value="envoyer" />
                         </form>
                     </div>
                     <div id="reponse"></div>
@@ -100,7 +100,7 @@
 
 
                             
-                            function test() {
+                            function afficherRep() {
                                 const form = document.getElementById("IdTxForm");
                                 const formJson = serialize(form);
                                 console.log(formJson);
@@ -110,7 +110,7 @@
                                                                 const jsonData = JSON.parse(xhr.responseText);
                                                                 console.log("callback return", jsonData);
                                                                 const outputdiv = document.getElementById("reponse");
-                                                                outputdiv.innerHTML = "envoierep" + jsonData.balance;
+                                                                outputdiv.innerHTML = "envoierep" + jsonData._id;
                                                                 //clé + valeur(type)
                                                             } catch(error) {
                                                                 console.log(error);
@@ -143,6 +143,7 @@
                         </script>
                             <!-- page html ou ejs ou autre-->
                             <div id="ouput">
+                                <p>Vos resultat concerne ID:</p>
                             </div>
                             <script>
                             function showOutput( aValue, outputDivId ) {
