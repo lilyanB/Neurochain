@@ -1,9 +1,21 @@
 const { application } = require('express');
 const express = require('express');
 const { isValidObjectId } = require('mongoose');
-const Post = require('../models/Post');
+const model = require('../models/Schema');
 
 const router = express.Router();
+
+router.post("/posts", async function(req, res, next) {
+    var outputData = { balance: 0 };
+    const inputIdTx = req.body.IdTx;
+    //console.log(inputIdTx);
+    res.json(outputData);
+});
+
+module.exports = router;
+
+
+
 /*
 //routes
 router.get('/', async (req, res) => {
@@ -40,11 +52,3 @@ router.get('/:postId', async (req, res) => {
     }
 });
 */
-router.post("/posts", async function(req, res, next) {
-    var outputData = { balance: 0 };
-    const inputIdTx = req.body.IdTx;
-    //console.log(inputIdTx);
-    res.json(outputData);
-});
-
-module.exports = router;
