@@ -1,7 +1,7 @@
 const { application } = require('express');
 const express = require('express');
 const { isValidObjectId } = require('mongoose');
-const model = require('../models/Schema');
+const models = require('../models/Schema');
 const tx = require('../models/Schema2');
 
 const router = express.Router();
@@ -10,10 +10,12 @@ router.post("/posts", async function(req, res, next) {
     //var outputData = { balance: 0 };
     const inputIdTx = req.body.IdTx;
     //console.log(inputIdTx);
-    const result = await model.findById(inputIdTx);
+    const result = await models.findById(inputIdTx);
     const result2 = await tx.find({ "blockId.data" : result.block.header.id.data});
+    //const result3 = await tx.findById("6192977acec8d10001488e33");
     //console.log(result._id);
     console.log(result2);
+    //console.log(result3);
     res.json(result);
 });
 

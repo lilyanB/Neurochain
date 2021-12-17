@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const PostSchema = mongoose.Schema({
     "_id": {
         "type": "ObjectId",
-        "required": [],
         "properties": {
           "$oid": {
             "type": "string"
@@ -164,6 +163,10 @@ const PostSchema = mongoose.Schema({
           }
         }
       }
-    });
+    },
+    {
+      collection: "models"
+    }
+    );
 
-module.exports = mongoose.model('model', PostSchema);
+module.exports = mongoose.model('models', PostSchema);

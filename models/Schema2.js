@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const PostSchema2 = mongoose.Schema({
   "_id": {
-    "type": "object",
+    "type": "ObjectId",
     "properties": {
       "$oid": {
         "type": "string"
@@ -411,6 +411,10 @@ const PostSchema2 = mongoose.Schema({
       }
     }
   }
-});
+},
+{
+  collection: "tx"
+}
+);
 
 module.exports = mongoose.model('tx', PostSchema2);
