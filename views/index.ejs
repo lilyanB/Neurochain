@@ -34,6 +34,12 @@
                     </div>
                     <div id="reponse">
                         <p id="id"></p>
+                        <p id="keypub"></p>
+                        <p id="keypriv"></p>
+                        <p id="previousBlockHash"></p>
+                        <p id="blockId"></p>
+                        <p id="dateBlock"></p>
+                        <p id="nbrTx"></p>
                     </div>
                         <script>
                             function serialize(form) {
@@ -113,6 +119,25 @@
                                                                 console.log("callback return", jsonData);
                                                                 const outputid = document.getElementById("id");
                                                                 outputid.innerHTML = "vos recherches concerne l'ID : " + jsonData._id;
+
+                                                                const outputid2 = document.getElementById("keypub");
+                                                                outputid2.innerHTML = "votre public key est : " + jsonData.block.header.author.keyPub.rawData;
+                                                                
+                                                                const outputid3 = document.getElementById("keypriv");
+                                                                outputid3.innerHTML = "votre private key est : " + jsonData.block.header.author.signature.data;
+
+                                                                const outputid4 = document.getElementById("blockId");
+                                                                outputid4.innerHTML = "votre block a l'id : " + jsonData.block.header.id.data;
+
+                                                                
+                                                                const outputid5 = document.getElementById("dateBlock");
+                                                                outputid5.innerHTML = "votre block est de : " + jsonData.block.header.timestamp.data;
+
+                                                                
+                                                                //const outputid5 = document.getElementById("nbrTx");
+                                                                //outputid5.innerHTML = "le nombre de transaction dans ce block est de : " + jsonData.block.header.author.keyPub.rawData;
+
+
                                                                 //clé + valeur(type)
                                                             } catch(error) {
                                                                 console.log(error);
