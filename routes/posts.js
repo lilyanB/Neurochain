@@ -4,6 +4,8 @@ const { isValidObjectId } = require('mongoose');
 const { count } = require('../models/Schema');
 const models = require('../models/Schema');
 const tx = require('../models/Schema2');
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId;
 
 const router = express.Router();
 
@@ -12,7 +14,7 @@ router.post("/posts", async function(req, res, next) {
     const inputIdTx = req.body.IdTx;
     //console.log(inputIdTx);
     const result = await models.findById(inputIdTx);
-    const bonId = await tx.find({ "blockId.data" : result.block.header.id.data});
+    //const bonId = await tx.find({ "blockId.data" : result.block.header.id.data});
     //console.log(result._id);
     /*
     console.log(bonId);
@@ -29,16 +31,15 @@ router.post("/posts", async function(req, res, next) {
             console.log("Number of documents in this ID " + result);
         }
       });
-    
-    const bonId2 = await tx.aggregate([
-        {
-           $transaction: {
-              item: 1,
-              numberOftx: { $cond: { if: { $isArray: "$outputs" }, then: { $size: "$outputs" }, else: "NA"} }
-           }
-        }
-     ] )
     */
+    const bonId = await tx.aggregate([
+        {$match: { _id: ObjectId('6192977acec8d10001488e33') }},
+        {$project: {
+            item: 1,
+            numberOfColors: { $size: "$outputs" }
+         }}
+     ] )
+     console.log(bonId);
     //console.log(result);
     res.json( { result: result, bonId: bonId } );
 });
