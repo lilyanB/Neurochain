@@ -34,12 +34,12 @@ router.post("/posts", async function(req, res, next) {
     */
     const bonId = await tx.aggregate([
         {$match: { _id: ObjectId('6192977acec8d10001488e33') }},
-        {$project: {
-            item: 1,
-            numberOfColors: { $size: "$outputs" }
+        {$project:
+            //{Number: { $cond: { if: { $isArray: "$outputs" }, then: { $size: "$outputs" }, else: "NA"} }
+            {nombre: {$size: "$transaction.outputs"}
          }}
      ] )
-     console.log(bonId);
+    console.log(bonId);
     //console.log(result);
     res.json( { result: result, bonId: bonId } );
 });
