@@ -117,7 +117,7 @@
                                                             try {
                                                                 const jsonData = JSON.parse(xhr.responseText);
                                                                 const jsonDataBlock = jsonData.result;
-                                                                const jsonDataTx = jsonData.bonId;
+                                                                const jsonDataTx = jsonData.bonId[0].nombre;
                                                                 //console.log("callback return", jsonData);
                                                                 const outputid = document.getElementById("id");
                                                                 outputid.innerHTML = "vos recherches concerne l'ID : " + jsonDataBlock._id;
@@ -138,7 +138,8 @@
                                                                 
                                                                 const outputid6 = document.getElementById("nbrTx");
                                                                 //outputid6.innerHTML = "le nombre de transaction dans ce block est de : " + jsonDataTx[0].transaction.outputs;
-                                                                outputid6.innerHTML = "le nombre de transaction dans ce block est de : " + jsonDataTx[1];
+                                                                outputid6.innerHTML = "le nombre de transaction dans ce block est de : " + jsonDataTx;
+                                                                console.log(jsonDataTx);
 
 
                                                                 //clé + valeur(type)

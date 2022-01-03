@@ -39,8 +39,17 @@ router.post("/posts", async function(req, res, next) {
             {nombre: {$size: "$transaction.outputs"}
          }}
      ] )
-    console.log(bonId);
-    //console.log(result);
+    //console.log(bonId);
+    //console.log(bonId[0].nombre);
+    //console.log(result)
+
+    /*
+    en js, quand tu vois [] c’est un array / tableau, donc tu peux y accéder avec l’index (0, 1, etc.)
+    quand tu vois des {}, c’est un object. Ce dernier a key et values
+    tu auras donc monObject { key1: maVal1, key2: maVal2, etc. }
+    tu peux avoir accès à toutes les valeurs avec monObject.key
+     */
+
     res.json( { result: result, bonId: bonId } );
 });
 
