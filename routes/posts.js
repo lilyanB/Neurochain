@@ -1,6 +1,7 @@
 const { application } = require('express');
 const express = require('express');
 const { isValidObjectId } = require('mongoose');
+const { count } = require('../models/Schema');
 const models = require('../models/Schema');
 const tx = require('../models/Schema2');
 
@@ -11,12 +12,35 @@ router.post("/posts", async function(req, res, next) {
     const inputIdTx = req.body.IdTx;
     //console.log(inputIdTx);
     const result = await models.findById(inputIdTx);
-    const result2 = await tx.find({ "blockId.data" : result.block.header.id.data});
-    //const result3 = await tx.findById("6192977acec8d10001488e33");
+    const bonId = await tx.find({ "blockId.data" : result.block.header.id.data});
     //console.log(result._id);
-    console.log(result2);
-    //console.log(result3);
-    res.json(result);
+    /*
+    console.log(bonId);
+    const tableau = bonId[0].transaction.outputs;
+    console.log("ceci est le tableau : " + tableau);
+    const nombre = await tx.count({"blockId.data" : result.block.header.id.data}); 
+    console.log("ceci est le nombre : " + nombre);
+
+
+    tx.count({ "blockId.data" : result.block.header.id.data }, function(err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Number of documents in this ID " + result);
+        }
+      });
+    
+    const bonId2 = await tx.aggregate([
+        {
+           $transaction: {
+              item: 1,
+              numberOftx: { $cond: { if: { $isArray: "$outputs" }, then: { $size: "$outputs" }, else: "NA"} }
+           }
+        }
+     ] )
+    */
+    //console.log(result);
+    res.json( { result: result, bonId: bonId } );
 });
 
 module.exports = router;
