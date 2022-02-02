@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 //connect to DB
 const mongoose = require('mongoose');
 const { exit } = require('process');
-mongoose.connect('mongodb+srv://design:design@cluster0.d5kff.mongodb.net/MyData?retryWrites=true&w=majority').then(() => {
+mongoose.connect('mongodb+srv://design:<password>@cluster0.d5kff.mongodb.net/myFirstDatabase?retryWrites=true&w=majority').then(() => {
     console.log('Connexion success')
 }).catch((error) => {
     console.log(error);
